@@ -1,2588 +1,529 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mubashara Rehman</title>
+<meta name="description" content="Mubashara Rehman – AI Researcher in Computer Vision and Medical Imaging. PhD (thesis submitted), University of Udine and IRCCS CRO Aviano, Italy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f9f9; --surface:#ffffff; --text:#14211f; --muted:#5a6b69;
+    --accent:#0e6e6b; --accent-soft:#e1f1ef; --line:#d6e4e2;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b1514; --surface:#12201f; --text:#e4efed; --muted:#8fa6a3;
+      --accent:#5cc8c0; --accent-soft:#163231; --line:#223836;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  /* Nav */
+  nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--text);letter-spacing:-.02em}
+  .logo span{color:var(--accent)}
+  .links{display:flex;gap:18px;font-size:14px}
+  .links a{color:var(--muted)}
+  .links a:hover{color:var(--accent);text-decoration:none}
 
-  <meta name="description"
-        content="Mubashara Rehman — AI researcher working in computer vision, medical imaging, deep learning and generative AI.">
+  /* Hero */
+  .hero{padding:60px 0 8px;display:flex;gap:28px;align-items:center}
+  .avatar{position:relative;flex:none;width:112px;height:112px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 38px "Space Grotesk",sans-serif;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .hero h1{font:700 clamp(32px,6vw,46px)/1.1 "Space Grotesk",sans-serif;letter-spacing:-.03em}
+  .hero .role{margin-top:6px;font-size:17px;color:var(--muted)}
+  .pill{display:inline-block;margin-top:12px;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px}
+  .hero .meta{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted)}
+  .btns{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;border:1px solid var(--accent)}
+  .btn.primary{background:var(--accent);color:#fff}
+  @media (prefers-color-scheme: dark){ .btn.primary{color:#062322} }
+  .btn:hover{text-decoration:none;opacity:.9}
 
-  <meta name="author" content="Mubashara Rehman">
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .stat b{display:block;font:700 26px "Space Grotesk",sans-serif;color:var(--accent)}
+  .stat small{color:var(--muted);font-size:13px}
 
-  <title>Mubashara Rehman | AI Researcher</title>
+  /* Sections */
+  section{padding:40px 0 8px}
+  h2{font:700 13px "Space Grotesk",sans-serif;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px}
+  p.lead{font-size:16px}
 
-  <!-- =====================================================
-       FONTS
-  ====================================================== -->
+  .highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .hl{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:16px}
+  .hl h3{font-size:15px;margin-bottom:4px}
+  .hl p{font-size:13.5px;color:var(--muted)}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  .collab{margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .collab b{color:var(--text);font-weight:600}
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap"
-        rel="stylesheet">
+  /* Timeline */
+  .timeline{position:relative;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .job{position:relative;margin-bottom:22px}
+  .job:last-child{margin-bottom:0}
+  .job::before{content:"";position:absolute;left:-26px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+  .job.minor::before{background:var(--bg);border:2px solid var(--accent);width:10px;height:10px;left:-24px;top:7px}
+  .job-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .job h3{font-size:16px}
+  .job .co{color:var(--accent);font-weight:600;font-size:14px}
+  .job .co span{color:var(--muted);font-weight:400}
+  .date{font-size:13px;color:var(--muted);white-space:nowrap}
+  .detail{font-size:13px;color:var(--muted);margin-top:4px}
+  .job ul{margin:8px 0 0 18px;font-size:14px;color:var(--muted)}
+  .job li{margin-bottom:4px}
+  .outcome{display:inline-block;margin-top:8px;font-size:13px;background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:6px;font-weight:500}
+  details summary{cursor:pointer;margin-top:4px;font-size:13px;font-weight:600;color:var(--accent);list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"+ "}
+  details[open] summary::before{content:"− "}
+  details[open] summary{margin-bottom:16px}
 
+  /* Publications */
+  .pubgroup{font:600 12px Inter,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:18px 0 10px}
+  .pubgroup:first-child{margin-top:0}
+  .pub{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;gap:14px}
+  .pub .yr{flex:none;font:700 13px "Space Grotesk",sans-serif;color:var(--accent);background:var(--accent-soft);border-radius:8px;width:52px;height:52px;display:grid;place-items:center;text-align:center;line-height:1.15}
+  .pub h3{font-size:14.5px;line-height:1.4}
+  .pub .au{font-size:13px;color:var(--muted);margin-top:3px}
+  .pub .au b{color:var(--text)}
+  .pub .ve{font-size:13px;color:var(--accent);margin-top:3px;font-style:italic}
+  .first{display:inline-block;font-size:11px;font-weight:600;font-style:normal;background:var(--accent);color:#fff;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:1px}
+  @media (prefers-color-scheme: dark){ .first{color:#062322} }
 
-  <!-- =====================================================
-       ICONS
-  ====================================================== -->
+  .pub h3 a.plink{color:var(--text)}
+  .pub h3 a.plink:hover{color:var(--accent);text-decoration:none}
+  .pub h3 a.plink span{color:var(--accent);font-size:13px}
+  .plinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .plinks a{font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:6px;padding:2px 9px}
+  .plinks a:hover{border-color:var(--accent);text-decoration:none}
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  /* Skills */
+  .skillrow{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .skillrow:last-child{border:0}
+  .skillrow b{font-size:14px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:500}
 
+  /* Lists */
+  .list{display:grid;gap:10px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+  .badge{flex:none;width:34px;height:34px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:16px}
+  .item b{display:block;font-size:14px;line-height:1.35}
+  .item small{display:block;margin-top:2px;color:var(--muted);font-size:12.5px;line-height:1.45}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  <!-- =====================================================
-       STYLESHEET
-  ====================================================== -->
+  .interests{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .int{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .int h3{font-size:15px;margin-bottom:4px}
+  .int p{font-size:13.5px;color:var(--muted)}
 
-  <link rel="stylesheet" href="stylesheet.css">
+  footer{margin-top:48px;padding:36px 0;border-top:1px solid var(--line);text-align:center}
+  footer h2{justify-content:center}
+  footer h2::after{display:none}
+  footer .btns{justify-content:center}
+  footer p{color:var(--muted);font-size:14px;margin-top:14px}
 
+  /* Posters */
+  .posters{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .poster{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+  .poster:hover,.poster:focus-visible{transform:translateY(-2px);border-color:var(--accent)}
+  .poster:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--accent-soft),var(--surface));display:grid;place-items:center;overflow:hidden}
+  .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+  .thumb .ph{font:700 22px "Space Grotesk",sans-serif;color:var(--accent);opacity:.8}
+  .thumb .count{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .pinfo{padding:14px 16px}
+  .pinfo h3{font-size:15px}
+  .pinfo p{font-size:13px;color:var(--muted);margin-top:2px}
+  .pinfo .pt{font-size:13px;color:var(--text);margin-top:6px;font-style:italic}
+  .pinfo .open{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--accent)}
+
+  /* Slideshow */
+  .modal{position:fixed;inset:0;z-index:50;background:rgba(5,12,12,.88);display:none;align-items:center;justify-content:center;padding:16px}
+  .modal.on{display:flex}
+  .box{width:min(960px,100%);max-height:100%;display:flex;flex-direction:column;gap:10px}
+  .mhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;color:#fff}
+  .mhead h3{font:700 18px "Space Grotesk",sans-serif}
+  .mhead p{font-size:13px;color:#b9cfcc}
+  .x{all:unset;cursor:pointer;font-size:26px;line-height:1;color:#fff;padding:4px 8px;border-radius:8px}
+  .x:hover{background:rgba(255,255,255,.12)}
+  .stage{position:relative;background:#0b1514;border-radius:12px;overflow:hidden;height:min(68vh,620px);display:grid;place-items:center}
+  .stage img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+  .stage .empty{color:#b9cfcc;text-align:center;padding:24px;font-size:14px}
+  .stage .empty b{display:block;font:700 22px "Space Grotesk",sans-serif;color:#5cc8c0;margin-bottom:6px}
+  .nav{all:unset;cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;font-size:22px}
+  .nav:hover{background:rgba(255,255,255,.26)}
+  .nav.prev{left:10px}.nav.next{right:10px}
+  .mfoot{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:14px;gap:12px}
+  .dots{display:flex;gap:8px}
+  .dots button{all:unset;cursor:pointer;width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35)}
+  .dots button.on{background:#5cc8c0}
+
+  @media (max-width:700px){
+    .posters{grid-template-columns:1fr}
+    .stage{height:60vh}
+    .links{display:none}
+    .hero{flex-direction:column;text-align:center;padding-top:40px}
+    .hero .meta,.btns{justify-content:center}
+    .highlights,.two,.interests{grid-template-columns:1fr}
+    .stat b{font-size:22px}
+    .skillrow{grid-template-columns:1fr;gap:6px}
+    .pub .yr{width:44px;height:44px;font-size:12px}
+  }
+</style>
 </head>
-
-
 <body>
 
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Mubashara<span>.</span></a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#posters">Posters</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <a href="Mubashara-Rehman-CV.pdf" download>CV ⬇</a>
+    </div>
+  </div>
+</nav>
 
-  <!-- =====================================================
-       NAVIGATION
-  ====================================================== -->
+<main class="wrap" id="top">
 
-  <header class="site-header">
-
-    <nav class="navbar">
-
-      <a href="#home" class="nav-logo">
-        MR<span>.</span>
-      </a>
-
-
-      <div class="nav-links">
-
-        <a href="#home">About</a>
-
-        <a href="#research">Research</a>
-
-        <a href="#experience">Experience</a>
-
-        <a href="#publications">Publications</a>
-
-        <a href="#education">Education</a>
-
-        <a href="#achievements">More</a>
-
-        <a href="data/Mubashara_Rehman_CV_Sep-2026.pdf"
-           target="_blank"
-           rel="noopener">
-          CV
-        </a>
-
-
-        <button id="theme-toggle"
-                class="theme-toggle"
-                aria-label="Toggle dark mode"
-                title="Toggle dark mode">
-
-          <i class="fa-solid fa-moon"></i>
-
-        </button>
-
+  <header class="hero">
+    <div class="avatar">MR<img src="photo.jpg" alt="Mubashara Rehman" onerror="this.remove()" style="position:absolute;inset:0"></div>
+    <div>
+      <h1>Mubashara Rehman</h1>
+      <p class="role">AI Researcher · Computer Vision &amp; Medical Imaging</p>
+      <span class="pill">🎓 PhD thesis submitted · University of Udine &amp; IRCCS CRO Aviano, Italy</span>
+      <div class="meta">
+        <a href="mailto:rehman.mubashara@gmail.com">✉ rehman.mubashara@gmail.com</a>
       </div>
-
-
-      <button class="mobile-menu-toggle"
-              id="mobile-menu-toggle"
-              aria-label="Open navigation menu">
-
-        <i class="fa-solid fa-bars"></i>
-
-      </button>
-
-    </nav>
-
+      <div class="btns">
+        <a class="btn primary" href="Mubashara-Rehman-CV.pdf" download>⬇ Download CV</a>
+        <a class="btn" href="https://scholar.google.com/citations?user=WYLi7mgAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+        <a class="btn" href="https://www.linkedin.com/in/mubashara-rehman" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://orcid.org/0009-0007-2935-0409" target="_blank" rel="noopener">ORCID</a>
+        <a class="btn" href="https://github.com/MubasharaRehman/" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
   </header>
 
+  <section id="about">
+    <h2>About</h2>
+    <div class="card">
+      <p class="lead">I'm a PhD researcher in Artificial Intelligence working on computer vision, deep learning and medical image analysis. I design generative AI models for CT and MRI reconstruction, image enhancement and cross-modality domain translation using PyTorch, and I enjoy working across academia, healthcare and industry to bring these methods into real clinical workflows. Looking ahead, I want to keep advancing AI research while exploring Neuro-AI, multimodal learning, foundation models and intelligent systems that address complex real-world challenges.</p>
+      <p class="collab">Collaborations with <b>IRCCS CRO Aviano</b> (Italy) · <b>Leiden University Medical Center</b> (Netherlands) · <b>Philips Research</b> · <b>Universidad de Santiago de Compostela</b> (Spain)</p>
+    </div>
+  </section>
 
+  <section id="research">
+    <h2>Research interests</h2>
+    <div class="highlights">
+      <div class="hl"><h3>Deep learning for medical imaging</h3><p>Generative models (CNNs, Vision Transformers, diffusion, flow matching) for clinical image analysis.</p></div>
+      <div class="hl"><h3>Metal artifact reduction in CT</h3><p>Removing metal-induced artifacts from CT scans to support accurate radiotherapy planning.</p></div>
+      <div class="hl"><h3>CT domain transformation</h3><p>Translating kVCT to MVCT to improve image quality in radiotherapy workflows.</p></div>
+      <div class="hl"><h3>CT reconstruction &amp; MRI enhancement</h3><p>Structure-preserving enhancement of low-field MRI towards high-field quality.</p></div>
+    </div>
+  </section>
 
-  <main>
+  <section id="experience">
+    <h2>Research experience</h2>
+    <div class="timeline">
 
+      <div class="job">
+        <div class="job-head"><h3>PhD Visiting Researcher</h3><span class="date">Jan 2026 – Jun 2026</span></div>
+        <div class="co">Leiden University Medical Center (LUMC) <span>· Leiden, Netherlands</span></div>
+        <p class="detail">Supervisor: Prof. Marius Staring · with Dr. Mariya Doneva (Philips Research) and Dr. Yiming Dong (LUMC)</p>
+        <ul>
+          <li>Deep learning-based low-field to high-field prostate MRI enhancement in a joint LUMC–Philips Research project.</li>
+          <li>Developed generative AI methods for MRI reconstruction and enhancement that preserve anatomical structure.</li>
+        </ul>      </div>
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-
-    <section id="home" class="hero section">
-
-      <div class="hero-content">
-
-
-        <div class="hero-text">
-
-          <p class="eyebrow">
-            Artificial Intelligence · Computer Vision · Medical Imaging
-          </p>
-
-
-          <h1>
-            Mubashara <span>Rehman</span>
-          </h1>
-
-
-          <p class="hero-intro">
-
-            AI researcher working at the intersection of
-            <strong>deep learning, computer vision,
-            medical imaging, and generative AI.</strong>
-
-          </p>
-
-
-          <p class="hero-description">
-
-            I recently submitted my PhD thesis in Computer Science and
-            Artificial Intelligence at the
-            <a href="https://www.uniud.it/en/uniud-international?set_language=en"
-               target="_blank"
-               rel="noopener">
-              University of Udine
-            </a>,
-            Italy.
-
-            My research focuses on developing AI methods for medical
-            image reconstruction, enhancement, artifact reduction,
-            and cross-modality transformation, with applications
-            in radiotherapy and clinical imaging.
-
-
-          </p>
-
-
-          <div class="profile-links">
-
-
-            <a href="mailto:rehman.mubashara@gmail.com"
-               class="profile-link">
-
-              <i class="fa-solid fa-envelope"></i>
-              <span>Email</span>
-
-            </a>
-
-
-            <a href="https://scholar.google.com/citations?user=WYLi7mgAAAAJ&hl=en"
-               target="_blank"
-               rel="noopener"
-               class="profile-link">
-
-              <i class="fa-solid fa-graduation-cap"></i>
-              <span>Scholar</span>
-
-            </a>
-
-
-            <a href="https://github.com/MubasharaRehman"
-               target="_blank"
-               rel="noopener"
-               class="profile-link">
-
-              <i class="fa-brands fa-github"></i>
-              <span>GitHub</span>
-
-            </a>
-
-
-            <a href="https://orcid.org/0009-0007-2935-0409"
-               target="_blank"
-               rel="noopener"
-               class="profile-link">
-
-              <i class="fa-brands fa-orcid"></i>
-              <span>ORCID</span>
-
-            </a>
-
-
-            <a href="https://www.linkedin.com/in/mubashara-rehman/"
-               target="_blank"
-               rel="noopener"
-               class="profile-link">
-
-              <i class="fa-brands fa-linkedin"></i>
-              <span>LinkedIn</span>
-
-            </a>
-
-
-            <a href="data/Mubashara_Rehman_CV_Sep-2026.pdf"
-               target="_blank"
-               rel="noopener"
-               class="profile-link profile-link-cv">
-
-              <i class="fa-regular fa-file-lines"></i>
-              <span>Download CV</span>
-
-            </a>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="hero-image-wrapper">
-
-          <div class="hero-image">
-
-            <img src="images/Githubio_DP.jpeg"
-                 alt="Mubashara Rehman">
-
-          </div>
-
-
-          <div class="image-caption">
-            AI · Computer Vision · Medical Imaging
-          </div>
-
-        </div>
-
+      <div class="job">
+        <div class="job-head"><h3>Research Collaborator</h3><span class="date">Sep 2023 – Sep 2026</span></div>
+        <div class="co">IRCCS Centro di Riferimento Oncologico di Aviano <span>· Aviano, Italy</span></div>
+        <ul>
+          <li>Worked with oncologists and medical physicists on CT imaging datasets.</li>
+          <li>Developed AI methods for metal artifact reduction and kVCT → MVCT domain transformation.</li>
+          <li>Integrated deep learning models for CT reconstruction and enhancement into radiotherapy workflows.</li>
+        </ul>
       </div>
 
-    </section>
-
-
-
-    <!-- =====================================================
-         RESEARCH AT A GLANCE
-    ====================================================== -->
-
-    <section class="glance-section">
-
-      <div class="glance-grid">
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            CT
-          </span>
-
-          <span class="glance-label">
-            Medical Imaging
-          </span>
-
-        </div>
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            MRI
-          </span>
-
-          <span class="glance-label">
-            Image Enhancement
-          </span>
-
-        </div>
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            AI
-          </span>
-
-          <span class="glance-label">
-            Generative Models
-          </span>
-
-        </div>
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            3+
-          </span>
-
-          <span class="glance-label">
-            Research Countries
-          </span>
-
-        </div>
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            CV
-          </span>
-
-          <span class="glance-label">
-            Computer Vision
-          </span>
-
-        </div>
-
-
-        <div class="glance-item">
-
-          <span class="glance-number">
-            DL
-          </span>
-
-          <span class="glance-label">
-            Deep Learning
-          </span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ABOUT
-    ====================================================== -->
-
-    <section id="about" class="section about-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          About
-        </p>
-
-        <h2>
-          Research with a clinical purpose.
-        </h2>
-
-      </div>
-
-
-      <div class="about-grid">
-
-
-        <div class="about-main">
-
-          <p class="large-text">
-
-            My research lies at the intersection of
-            <strong>artificial intelligence and medical imaging</strong>.
-            I am particularly interested in developing deep learning
-            and generative models that can improve the quality,
-            consistency, and usefulness of medical images.
-
-          </p>
-
-
-          <p>
-
-            During my doctoral research, I worked on CT reconstruction,
-            metal artifact reduction, and cross-modality transformation
-            for radiotherapy applications. More recently, I expanded
-            this direction toward MRI enhancement and generative
-            reconstruction during my research stay at LUMC and
-            collaboration with Philips Research.
-
-          </p>
-
-
-          <p>
-
-            I enjoy working across disciplines, combining machine
-            learning research with practical medical imaging problems
-            and collaborations involving researchers, clinicians,
-            medical physicists, and technology partners.
-
-          </p>
-
-        </div>
-
-
-        <aside class="about-side">
-
-          <div class="about-fact">
-
-            <span>
-              Current status
-            </span>
-
-            <strong>
-              PhD thesis submitted
-            </strong>
-
-            <small>
-              August 2026
-            </small>
-
-          </div>
-
-
-          <div class="about-fact">
-
-            <span>
-              Research focus
-            </span>
-
-            <strong>
-              Medical AI & Computer Vision
-            </strong>
-
-          </div>
-
-
-          <div class="about-fact">
-
-            <span>
-              Methods
-            </span>
-
-            <strong>
-              Deep Learning · Generative AI
-            </strong>
-
-          </div>
-
-        </aside>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RESEARCH
-    ====================================================== -->
-
-    <section id="research" class="section research-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Research
-        </p>
-
-        <h2>
-          Areas of interest
-        </h2>
-
-        <p class="section-intro">
-
-          My research explores how modern AI methods can be developed
-          for challenging visual and medical imaging problems.
-
-        </p>
-
-      </div>
-
-
-      <div class="research-grid">
-
-
-        <article class="research-card">
-
-          <div class="research-icon">
-            <i class="fa-solid fa-heart-pulse"></i>
-          </div>
-
-          <h3>
-            Medical Imaging
-          </h3>
-
-          <p>
-
-            AI methods for medical image reconstruction, enhancement,
-            artifact reduction and clinically motivated image analysis.
-
-          </p>
-
-          <div class="research-tags">
-
-            <span>CT</span>
-            <span>MRI</span>
-            <span>Reconstruction</span>
-            <span>Artifact Reduction</span>
-
-          </div>
-
-        </article>
-
-
-
-        <article class="research-card">
-
-          <div class="research-icon">
-            <i class="fa-solid fa-eye"></i>
-          </div>
-
-          <h3>
-            Computer Vision
-          </h3>
-
-          <p>
-
-            Deep learning approaches for image understanding,
-            enhancement, representation learning and visual
-            reconstruction.
-
-          </p>
-
-          <div class="research-tags">
-
-            <span>Deep Learning</span>
-            <span>Vision</span>
-            <span>Image Enhancement</span>
-            <span>ViTs</span>
-
-          </div>
-
-        </article>
-
-
-
-        <article class="research-card">
-
-          <div class="research-icon">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-          </div>
-
-          <h3>
-            Generative AI
-          </h3>
-
-          <p>
-
-            Generative and image-to-image learning approaches for
-            cross-modality transformation and data-driven visual
-            synthesis.
-
-          </p>
-
-          <div class="research-tags">
-
-            <span>Generative Models</span>
-            <span>Flow Matching</span>
-            <span>Image Translation</span>
-            <span>Domain Transformation</span>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RESEARCH EXPERIENCE
-    ====================================================== -->
-
-    <section id="experience" class="section experience-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Research experience
-        </p>
-
-        <h2>
-          Research across institutions.
-        </h2>
-
-        <p class="section-intro">
-
-          International collaborations spanning medical imaging,
-          computer vision, radiotherapy and generative AI.
-
-        </p>
-
-      </div>
-
-
-      <div class="experience-list">
-
-
-        <!-- LUMC -->
-
-        <article class="experience-card">
-
-          <div class="experience-date">
-            Jan 2026 — Jun 2026
-          </div>
-
-
-          <div class="experience-marker">
-            <i class="fa-solid fa-microscope"></i>
-          </div>
-
-
-          <div class="experience-content">
-
-            <p class="experience-type">
-              Visiting Researcher
-            </p>
-
-            <h3>
-              Leiden University Medical Center
-            </h3>
-
-            <p class="experience-location">
-              Leiden, Netherlands · LUMC · Philips Research
-            </p>
-
-            <p>
-
-              Research on deep learning methods for low-field to
-              high-field prostate MRI enhancement, with emphasis on
-              generative reconstruction and preservation of anatomical
-              structures.
-
-            </p>
-
-
-            <div class="experience-tags">
-
-              <span>MRI</span>
-              <span>Generative AI</span>
-              <span>Image Enhancement</span>
-              <span>Reconstruction</span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- USC -->
-
-        <article class="experience-card">
-
-          <div class="experience-date">
-            Apr 2024 — Sep 2024
-          </div>
-
-
-          <div class="experience-marker">
-            <i class="fa-solid fa-globe"></i>
-          </div>
-
-
-          <div class="experience-content">
-
-            <p class="experience-type">
-              Research Collaboration
-            </p>
-
-            <h3>
-              Universidad de Santiago de Compostela
-            </h3>
-
-            <p class="experience-location">
-              Santiago de Compostela, Spain
-            </p>
-
-            <p>
-
-              Research on metal artifact reduction and CT domain
-              transformation, contributing to AI-based image generation
-              for radiotherapy planning.
-
-            </p>
-
-
-            <div class="experience-tags">
-
-              <span>CT</span>
-              <span>MAR</span>
-              <span>Domain Transformation</span>
-              <span>Radiotherapy</span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- CRO -->
-
-        <article class="experience-card">
-
-          <div class="experience-date">
-            Sep 2023 — Sep 2026
-          </div>
-
-
-          <div class="experience-marker">
-            <i class="fa-solid fa-hospital"></i>
-          </div>
-
-
-          <div class="experience-content">
-
-            <p class="experience-type">
-              Research Collaborator
-            </p>
-
-            <h3>
-              IRCCS Centro di Riferimento Oncologico
-            </h3>
-
-            <p class="experience-location">
-              Aviano, Italy · CRO IRCCS
-            </p>
-
-            <p>
-
-              Collaborative research with oncologists and medical
-              physicists on AI-driven CT reconstruction, metal artifact
-              reduction and kVCT-to-MVCT transformation for radiotherapy.
-
-            </p>
-
-
-            <div class="experience-tags">
-
-              <span>Medical AI</span>
-              <span>CT</span>
-              <span>Radiotherapy</span>
-              <span>Clinical Collaboration</span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-    <!-- =====================================================
-         PUBLICATIONS
-    ====================================================== -->
-
-    <section id="publications" class="section publications-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Research output
-        </p>
-
-        <h2>
-          Publications
-        </h2>
-
-        <p class="section-intro">
-
-          Selected publications and research contributions in
-          medical imaging, computer vision, generative AI and
-          clinically motivated machine learning.
-
-        </p>
-
-      </div>
-
-
-      <div class="publication-list">
-
-
-        <!-- =================================================
-             2026 — REFINE MRI
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <img src="images/refinemri.png"
-                   alt="ReFineMRI research visualization">
-
-            </div>
-
-            <span class="publication-year">
-              2026
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status under-review">
-                Under Review
-              </span>
-
-              <span>
-                IEEE Transactions on Computational Imaging
-              </span>
-
-            </div>
-
-
-            <h3>
-              ReFineMRI: Structure-Preserving Low-Field MRI
-              Enhancement via Progressive Refinement
-            </h3>
-
-
-            <p class="authors">
-
-              <strong>Mubashara Rehman</strong>,
-              Donghang Lyu, Marius Staring, Niki Martinel,
-              Mariya Doneva, Christian Micheloni, and Yiming Dong
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A progressive refinement framework for enhancing
-              low-field MRI while preserving important anatomical
-              structures and image characteristics.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <span class="publication-note">
-                Submitted for review · 2026
-              </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2026 — WAVEFORM NET
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <img src="images/waveform_net.png"
-                   alt="WAVEFORM-Net research visualization">
-
-            </div>
-
-            <span class="publication-year">
-              2026
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status under-review">
-                Under Review
-              </span>
-
-              <span>
-                Multimedia Tools and Applications · Springer
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              WAVEFORM-Net: Wavelet-Enhanced Frequency Fusion
-              for Transformer-Based Metal Artifact Reduction
-              in CT Domain Translation
-
-            </h3>
-
-
-            <p class="authors">
-
-              <strong>Mubashara Rehman</strong>,
-              Niki Martinel, Michele Avanzo,
-              Riccardo Spizzo, and Christian Micheloni
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A frequency-aware transformer framework combining
-              wavelet representations with feature fusion for
-              metal artifact reduction and CT domain translation.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <span class="publication-note">
-                Submitted · Under review · 2026
-              </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2026 — MVCT
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <img src="images/mvct_quality.png"
-                   alt="Synthetic MVCT evaluation">
-
-            </div>
-
-            <span class="publication-year">
-              2026
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                Physica Medica
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              Evaluation of Quality of Synthetic Megavolt
-              Computed Tomography (MVCT) for Planning of
-              Radiotherapy Treatments of Head and Neck
-
-            </h3>
-
-
-            <p class="authors">
-
-              M. Avanzo, A. Corso,
-              <strong>Mubashara Rehman</strong>,
-              C. Micheloni, N. Martinel, R. Spizzo,
-              C. Deana, G. Fanetti, C. Cappelletto,
-              P. Chiovati, G. Pirrone, S. Peric, and A. Dassie
-
-            </p>
-
-
-            <p class="publication-description">
-
-              Evaluation of synthetic MVCT image quality and its
-              potential for supporting radiotherapy treatment
-              planning in head and neck cancer.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <a href="https://doi.org/10.1016/j.ejmp.2026.102908"
-                 target="_blank"
-                 rel="noopener">
-
-                DOI
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2026 — H3D MARNET
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <img src="images/h3d_marnet.png"
-                   alt="H3D-MarNet research visualization">
-
-            </div>
-
-            <span class="publication-year">
-              2026
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                ICPR 2026 · Springer LNCS
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              H3D-MarNet: Wavelet-Guided Dual-Path Learning
-              for Metal Artifact Suppression and CT Modality
-              Transformation for Radiotherapy Workflows
-
-            </h3>
-
-
-            <p class="authors">
-
-              <strong>Mubashara Rehman</strong>,
-              Niki Martinel, Michele Avanzo,
-              Riccardo Spizzo, and Christian Micheloni
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A wavelet-guided dual-path learning framework
-              addressing metal artifact suppression and CT
-              modality transformation for radiotherapy workflows.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <span class="publication-note">
-
-                Pattern Recognition – ICPR 2026 ·
-                LNCS 16821 · pp. 123–138
-
-              </span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2025 — REMAR DS
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <video muted autoplay loop playsinline>
-
-                <source src="images/tip.mp4"
-                        type="video/mp4">
-
-              </video>
-
-              <img src="images/ReMAR_DS_ICIAP2025_.jpg"
-                   alt="ReMAR-DS publication">
-
-            </div>
-
-            <span class="publication-year">
-              2025
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                ICIAP 2025
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              ReMAR-DS: Recalibrated Feature Learning for
-              Metal Artifact Reduction and CT Domain Transformation
-
-            </h3>
-
-
-            <p class="authors">
-
-              <strong>Mubashara Rehman</strong>,
-              Niki Martinel, Michele Avanzo,
-              Riccardo Spizzo, and Christian Micheloni
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A feature-learning framework for reducing metal
-              artifacts while performing CT domain transformation,
-              with emphasis on artifact-prone regions and
-              anatomical structure preservation.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <a href="https://arxiv.org/pdf/2506.19531"
-                 target="_blank"
-                 rel="noopener">
-
-                Paper
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-              </a>
-
-              <a href="data/default.bib">
-                BibTeX
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2025 — RESPONSIBLE AI
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <video muted autoplay loop playsinline>
-
-                <source src="images/responsible_ai.mp4"
-                        type="video/mp4">
-
-              </video>
-
-              <img src="images/ACM Sigir.png"
-                   alt="Responsible AI course report">
-
-            </div>
-
-            <span class="publication-year">
-              2025
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                ACM SIGIR Forum
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              Report on the Hands-On PhD Course on Responsible AI
-              from the Lens of an Information Access Researcher
-
-            </h3>
-
-
-            <p class="authors">
-
-              Damiano Spina, Kevin Roitero, Stefano Mizzaro,
-              Vincenzo Della Mea, Francesca Da Ros, Michael Soprano,
-              et al., including <strong>Mubashara Rehman</strong>
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A report on a four-day PhD-level Responsible AI
-              course covering positionality, fairness, diversity,
-              ethics and participatory research through case
-              studies and interactive activities.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <a href="https://dl.acm.org/doi/abs/10.1145/3722449.3722456"
-                 target="_blank"
-                 rel="noopener">
-
-                Paper
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-              </a>
-
-              <a href="data/default.bib">
-                BibTeX
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2024 — MAR DTN
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <video muted autoplay loop playsinline>
-
-                <source src="images/mar_dtn.mp4"
-                        type="video/mp4">
-
-              </video>
-
-              <img src="images/myUNet_architecture.png"
-                   alt="MAR-DTN publication">
-
-            </div>
-
-            <span class="publication-year">
-              2024
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                ICPR 2024
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              MAR-DTN: Metal Artifact Reduction Using Domain
-              Transformation Network for Radiotherapy Planning
-
-            </h3>
-
-
-            <p class="authors">
-
-              Belén Serrano-Antón,
-              <strong>Mubashara Rehman</strong>,
-              Niki Martinel, Michele Avanzo,
-              Riccardo Spizzo, Giuseppe Fanetti,
-              Alberto P. Muñuzuri, and Christian Micheloni
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A UNet-inspired domain transformation network for
-              generating artifact-free MVCT images from kVCT inputs,
-              combining information from both modalities to improve
-              image quality for radiotherapy planning.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <a href="https://doi.org/10.1007/978-3-031-78195-7_10"
-                 target="_blank"
-                 rel="noopener">
-
-                Paper
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-              </a>
-
-              <a href="data/default.bib">
-                BibTeX
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- =================================================
-             2021 — OPTICAL FLOW
-        ================================================== -->
-
-        <article class="publication-card">
-
-          <div class="publication-media">
-
-            <div class="media-inner">
-
-              <video muted autoplay loop playsinline>
-
-                <source src="images/optical_flow.mp4"
-                        type="video/mp4">
-
-              </video>
-
-              <img src="images/ICSCA2021.png"
-                   alt="Optical flow publication">
-
-            </div>
-
-            <span class="publication-year">
-              2021
-            </span>
-
-          </div>
-
-
-          <div class="publication-content">
-
-            <div class="publication-meta">
-
-              <span class="status published">
-                Published
-              </span>
-
-              <span>
-                ICSCA 2021
-              </span>
-
-            </div>
-
-
-            <h3>
-
-              A Fast and Robust Embedded Optical Flow Unit
-              on Motion Estimation
-
-            </h3>
-
-
-            <p class="authors">
-
-              <strong>Mubashara Rehman</strong>,
-              Chung Ming Own, and Ziqi Li
-
-            </p>
-
-
-            <p class="publication-description">
-
-              A fast and robust optical flow estimation unit using
-              correlation-based feature matching, an Extended Sobel
-              operator and feature-fusion strategies.
-
-            </p>
-
-
-            <div class="publication-links">
-
-              <a href="https://doi.org/10.1145/3457784.3457813"
-                 target="_blank"
-                 rel="noopener">
-
-                Paper
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-              </a>
-
-              <a href="data/default.bib">
-                BibTeX
-              </a>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-
-      <div class="publications-footer">
-
-        <a href="https://scholar.google.com/citations?user=WYLi7mgAAAAJ&hl=en"
-           target="_blank"
-           rel="noopener"
-           class="text-link">
-
-          View full publication record
-          <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         EDUCATION
-    ====================================================== -->
-
-    <section id="education" class="section education-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Education
-        </p>
-
-        <h2>
-          Academic background
-        </h2>
-
-      </div>
-
-
-      <div class="education-list">
-
-
-        <!-- PhD -->
-
-        <article class="education-card featured-education">
-
-          <div class="education-year">
-            2023 — 2026
-          </div>
-
-
-          <div class="education-icon">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-
-
-          <div class="education-content">
-
-            <p class="education-level">
-              PhD · Artificial Intelligence
-            </p>
-
-            <h3>
-              University of Udine
-            </h3>
-
-            <p class="education-location">
-              Udine, Italy
-            </p>
-
-            <p>
-
-              PhD in Artificial Intelligence and Data Analysis
-              for Personalized Oncology. Thesis submitted in
-              August 2026.
-
-            </p>
-
-            <div class="education-tags">
-
-              <span>Medical AI</span>
-              <span>Computer Vision</span>
-              <span>Deep Learning</span>
-              <span>Medical Imaging</span>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- MSc -->
-
-        <article class="education-card">
-
-          <div class="education-year">
-            2017 — 2020
-          </div>
-
-
-          <div class="education-icon">
-            <i class="fa-solid fa-university"></i>
-          </div>
-
-
-          <div class="education-content">
-
-            <p class="education-level">
-              MSc · Software Engineering
-            </p>
-
-            <h3>
-              Tianjin University
-            </h3>
-
-            <p class="education-location">
-              Tianjin, China
-            </p>
-
-            <p>
-
-              Master's degree in Software Engineering.
-              Awarded the Tianjin University International
-              Student Scholarship.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-
-        <!-- BSc -->
-
-        <article class="education-card">
-
-          <div class="education-year">
-            2012 — 2016
-          </div>
-
-
-          <div class="education-icon">
-            <i class="fa-solid fa-laptop-code"></i>
-          </div>
-
-
-          <div class="education-content">
-
-            <p class="education-level">
-              BSc · Software Engineering
-            </p>
-
-            <h3>
-              Fatima Jinnah Women University
-            </h3>
-
-            <p class="education-location">
-              Rawalpindi, Pakistan
-            </p>
-
-            <p>
-
-              Bachelor's degree in Software Engineering,
-              with a senior design thesis on Android-based
-              indoor navigation and positioning.
-
-            </p>
-
-          </div>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         INTERNATIONAL TRAINING
-    ====================================================== -->
-
-    <section class="section training-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Training
-        </p>
-
-        <h2>
-          International schools & research training
-        </h2>
-
-      </div>
-
-
-      <div class="training-grid">
-
-
-        <article class="training-card">
-
-          <span class="training-year">
-            2025
-          </span>
-
-          <h3>
-            RISE-MICCAI Summer School
-          </h3>
-
-          <p>
-            MICCAI Society
-          </p>
-
-        </article>
-
-
-
-        <article class="training-card">
-
-          <span class="training-year">
-            2025
-          </span>
-
-          <h3>
-            International Summer School on AI
-          </h3>
-
-          <p>
-            AI-DLDA · University of Udine
-          </p>
-
-        </article>
-
-
-
-        <article class="training-card">
-
-          <span class="training-year">
-            2024
-          </span>
-
-          <h3>
-            International Computer Vision Summer School
-          </h3>
-
-          <p>
-            ICVSS · University of Cambridge
-          </p>
-
-        </article>
-
-
-
-        <article class="training-card">
-
-          <span class="training-year">
-            2024
-          </span>
-
-          <h3>
-            AI-DLDA Summer School
-          </h3>
-
-          <p>
-            University of Udine
-          </p>
-
-        </article>
-
-
-
-        <article class="training-card">
-
-          <span class="training-year">
-            2023
-          </span>
-
-          <h3>
-            Technologies for Good
-          </h3>
-
-          <p>
-            DAAD · Summer School for Humans & Technology
-          </p>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         SKILLS
-    ====================================================== -->
-
-    <section id="skills" class="section skills-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Toolkit
-        </p>
-
-        <h2>
-          Technical skills
-        </h2>
-
-      </div>
-
-
-      <div class="skills-grid">
-
-
-        <div class="skill-group">
-
-          <div class="skill-heading">
-
-            <i class="fa-solid fa-brain"></i>
-
-            <h3>
-              AI & Computer Vision
-            </h3>
-
-          </div>
-
-          <div class="skill-tags">
-
-            <span>Deep Learning</span>
-            <span>Generative AI</span>
-            <span>CNNs</span>
-            <span>Vision Transformers</span>
-            <span>Diffusion Models</span>
-            <span>Flow Matching</span>
-            <span>Image Reconstruction</span>
-            <span>Image Enhancement</span>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="skill-group">
-
-          <div class="skill-heading">
-
-            <i class="fa-solid fa-code"></i>
-
-            <h3>
-              Programming
-            </h3>
-
-          </div>
-
-          <div class="skill-tags">
-
-            <span>Python</span>
-            <span>C/C++</span>
-            <span>PyTorch</span>
-            <span>OpenCV</span>
-            <span>NumPy</span>
-            <span>Pandas</span>
-            <span>scikit-image</span>
-            <span>Matplotlib</span>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="skill-group">
-
-          <div class="skill-heading">
-
-            <i class="fa-solid fa-x-ray"></i>
-
-            <h3>
-              Medical Imaging
-            </h3>
-
-          </div>
-
-          <div class="skill-tags">
-
-            <span>CT</span>
-            <span>MRI</span>
-            <span>DICOM</span>
-            <span>3D Slicer</span>
-            <span>ITK-SNAP</span>
-            <span>Radiotherapy Imaging</span>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="skill-group">
-
-          <div class="skill-heading">
-
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-
-            <h3>
-              Research Tools
-            </h3>
-
-          </div>
-
-          <div class="skill-tags">
-
-            <span>Git</span>
-            <span>Jupyter</span>
-            <span>Weights & Biases</span>
-            <span>LaTeX</span>
-            <span>BibTeX</span>
-            <span>Jira</span>
-            <span>Mendeley</span>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ACHIEVEMENTS + SERVICE
-    ====================================================== -->
-
-    <section id="achievements" class="section achievements-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Academic activities
-        </p>
-
-        <h2>
-          Achievements & service
-        </h2>
-
-      </div>
-
-
-      <div class="academic-grid">
-
-
-        <!-- Awards -->
-
-        <div class="academic-column">
-
-          <div class="academic-title">
-
-            <div class="academic-icon">
-              <i class="fa-solid fa-award"></i>
-            </div>
-
-            <h3>
-              Awards & honours
-            </h3>
-
-          </div>
-
-
-          <div class="timeline">
-
-
-            <div class="timeline-item">
-
-              <div class="timeline-marker"></div>
-
-              <div>
-
-                <h4>
-                  PhD Fellowship Award
-                </h4>
-
-                <p>
-
-                  Fully funded doctoral fellowship supported by
-                  the Italian Ministry of Health in collaboration
-                  with the National Cancer Research Institute,
-                  CRO IRCCS.
-
-                </p>
-
-                <span>
-                  2023
-                </span>
-
-              </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-              <div class="timeline-marker"></div>
-
-              <div>
-
-                <h4>
-                  Tianjin University Scholarship
-                </h4>
-
-                <p>
-
-                  International Student Scholarship awarded by
-                  Tianjin University for academic excellence.
-
-                </p>
-
-                <span>
-                  2017
-                </span>
-
-              </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-              <div class="timeline-marker"></div>
-
-              <div>
-
-                <h4>
-                  Prime Minister's Laptop Award
-                </h4>
-
-                <p>
-
-                  Recipient of the Prime Minister's Best Student
-                  Laptop Scheme, Government of Pakistan.
-
-                </p>
-
-                <span>
-                  2015
-                </span>
-
-              </div>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Academic Service -->
-
-        <div class="academic-column">
-
-          <div class="academic-title">
-
-            <div class="academic-icon">
-              <i class="fa-solid fa-clipboard-check"></i>
-            </div>
-
-            <h3>
-              Academic service
-            </h3>
-
-          </div>
-
-
-          <div class="service-card">
-
-            <div class="service-label">
-              Peer Review
-            </div>
-
-
-            <div class="service-items">
-
-              <span>
-                WACV 2025
-              </span>
-
-              <span>
-                ICIAP 2025
-              </span>
-
-              <span>
-                ICIAP 2023
-              </span>
-
-            </div>
-
-
-            <p>
-
-              Peer-review activities in computer vision,
-              medical imaging and image analysis research.
-
-            </p>
-
-          </div>
-
-
-
-          <div class="affiliation-card">
-
-            <i class="fa-solid fa-users"></i>
-
-            <div>
-
-              <span>
-                Professional affiliation
-              </span>
-
-              <strong>
-                CVPL · IAPR
-              </strong>
-
-              <small>
-                Member · 2025–Present
-              </small>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         BEYOND RESEARCH
-    ====================================================== -->
-
-    <section class="section beyond-section">
-
-      <div class="section-heading">
-
-        <p class="section-label">
-          Beyond research
-        </p>
-
-        <h2>
-          A few things outside the lab.
-        </h2>
-
-      </div>
-
-
-      <div class="beyond-grid">
-
-
-        <div class="beyond-card">
-
-          <div class="beyond-icon">
-            <i class="fa-solid fa-music"></i>
-          </div>
-
-          <div>
-
-            <h3>
-              Music & singing
-            </h3>
-
-            <p>
-
-              Soprano singing with the International Students
-              Chorus at Tianjin University.
-
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="beyond-card">
-
-          <div class="beyond-icon">
-            <i class="fa-solid fa-hands-helping"></i>
-          </div>
-
-          <div>
-
-            <h3>
-              Volunteering
-            </h3>
-
-            <p>
-
-              Volunteer activities supporting students and
-              community initiatives, including work with
-              Esmile Khursheed Welfare and Al-Shifa Eye Trust Hospital.
-
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="beyond-card">
-
-          <div class="beyond-icon">
-            <i class="fa-solid fa-plane"></i>
-          </div>
-
-          <div>
-
-            <h3>
-              International perspective
-            </h3>
-
-            <p>
-
-              Research and academic experiences across Italy,
-              the Netherlands, Spain and China.
-
-            </p>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         CONTACT
-    ====================================================== -->
-
-    <section id="contact" class="contact-section">
-
-      <div class="contact-inner">
-
-
-        <div>
-
-          <p class="section-label">
-            Contact
-          </p>
-
-          <h2>
-            Let's connect.
-          </h2>
-
-          <p>
-
-            I am interested in research collaborations,
-            postdoctoral opportunities, and projects involving
-            machine learning, computer vision and medical AI.
-
-          </p>
-
-        </div>
-
-
-        <div class="contact-actions">
-
-          <a href="mailto:rehman.mubashara@gmail.com"
-             class="contact-button primary">
-
-            <i class="fa-solid fa-envelope"></i>
-
-            Get in touch
-
-          </a>
-
-
-          <a href="https://scholar.google.com/citations?user=WYLi7mgAAAAJ&hl=en"
-             target="_blank"
-             rel="noopener"
-             class="contact-button">
-
-            Google Scholar
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-          </a>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-
-
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
-
-  <footer class="footer">
-
-    <div class="footer-content">
-
-
-      <div>
-
-        <strong>
-          Mubashara Rehman
-        </strong>
-
-        <p>
-          AI · Computer Vision · Medical Imaging
-        </p>
-
-      </div>
-
-
-      <div class="footer-links">
-
-
-        <a href="mailto:rehman.mubashara@gmail.com"
-           aria-label="Email">
-
-          <i class="fa-solid fa-envelope"></i>
-
-        </a>
-
-
-        <a href="https://scholar.google.com/citations?user=WYLi7mgAAAAJ&hl=en"
-           target="_blank"
-           rel="noopener"
-           aria-label="Google Scholar">
-
-          <i class="fa-solid fa-graduation-cap"></i>
-
-        </a>
-
-
-        <a href="https://github.com/MubasharaRehman"
-           target="_blank"
-           rel="noopener"
-           aria-label="GitHub">
-
-          <i class="fa-brands fa-github"></i>
-
-        </a>
-
-
-        <a href="https://orcid.org/0009-0007-2935-0409"
-           target="_blank"
-           rel="noopener"
-           aria-label="ORCID">
-
-          <i class="fa-brands fa-orcid"></i>
-
-        </a>
-
-
-        <a href="https://www.linkedin.com/in/mubashara-rehman/"
-           target="_blank"
-           rel="noopener"
-           aria-label="LinkedIn">
-
-          <i class="fa-brands fa-linkedin"></i>
-
-        </a>
-
-      </div>
+      <div class="job">
+        <div class="job-head"><h3>Research Collaboration</h3><span class="date">Apr 2024 – Sep 2024</span></div>
+        <div class="co">Universidad de Santiago de Compostela <span>· Spain</span></div>
+        <p class="detail">With Dr. Belén Serrano-Antón and Prof. Alberto P. Muñuzuri · Nonlinear Physics Group, CITMAga, FlowReserve Labs S.L.</p>
+        <ul>
+          <li>Medical imaging research on metal artifact reduction and CT domain transformation.</li>
+        </ul>      </div>
 
     </div>
+  </section>
 
+  <section id="publications">
+    <h2>Publications</h2>
 
-    <div class="footer-bottom">
+    <div class="pubgroup">Conference papers</div>
+    <div class="pub"><div class="yr">ICPR<br>2026</div><div>
+      <h3><a class="plink" href="https://arxiv.org/abs/2605.12252" target="_blank" rel="noopener">H3D-MarNet: Wavelet-Guided Dual-Path Learning for Metal Artifact Suppression and CT Modality Transformation for Radiotherapy Workflows <span aria-hidden="true">↗</span></a></h3>
+      <p class="au"><b>M. Rehman</b>, N. Martinel, M. Avanzo, R. Spizzo, C. Micheloni</p>
+      <p class="ve">Pattern Recognition – ICPR 2026, LNCS vol. 16821, Springer <span class="first">First author</span></p>
+      <p class="plinks"><a href="https://arxiv.org/abs/2605.12252" target="_blank" rel="noopener">arXiv</a> <a href="https://arxiv.org/pdf/2605.12252" target="_blank" rel="noopener">PDF</a></p>
+    </div></div>
+    <div class="pub"><div class="yr">ICIAP<br>2025</div><div>
+      <h3><a class="plink" href="https://doi.org/10.1007/978-3-032-10192-1_18" target="_blank" rel="noopener">ReMAR-DS: Recalibrated Feature Learning for Metal Artifact Reduction and CT Domain Transformation <span aria-hidden="true">↗</span></a></h3>
+      <p class="au"><b>M. Rehman</b>, N. Martinel, M. Avanzo, R. Spizzo, C. Micheloni</p>
+      <p class="ve">23rd International Conference on Image Analysis and Processing <span class="first">First author</span></p>
+      <p class="plinks"><a href="https://doi.org/10.1007/978-3-032-10192-1_18" target="_blank" rel="noopener">Springer</a> <a href="https://arxiv.org/abs/2506.19531" target="_blank" rel="noopener">arXiv</a> <a href="https://arxiv.org/pdf/2506.19531" target="_blank" rel="noopener">PDF</a></p>
+    </div></div>
+    <div class="pub"><div class="yr">ICPR<br>2024</div><div>
+      <h3><a class="plink" href="https://doi.org/10.1007/978-3-031-78195-7_10" target="_blank" rel="noopener">MAR-DTN: Metal Artifact Reduction using Domain Transformation Network for Radiotherapy Planning <span aria-hidden="true">↗</span></a></h3>
+      <p class="au"><b>M. Rehman</b>, N. Martinel, M. Avanzo, R. Spizzo, C. Micheloni</p>
+      <p class="ve">27th International Conference on Pattern Recognition <span class="first">First author</span></p>
+      <p class="plinks"><a href="https://doi.org/10.1007/978-3-031-78195-7_10" target="_blank" rel="noopener">Springer</a> <a href="https://arxiv.org/abs/2409.15155" target="_blank" rel="noopener">arXiv</a> <a href="https://arxiv.org/pdf/2409.15155" target="_blank" rel="noopener">PDF</a></p>
+    </div></div>
 
-      © 2026 Mubashara Rehman
+    <div class="pubgroup">Journal articles</div>
+    <div class="pub"><div class="yr">2026</div><div>
+      <h3>Evaluation of Quality of Synthetic Megavolt Computed Tomography (MVCT) for Planning of Radiotherapy Treatments of Head and Neck</h3>
+      <p class="au">M. Avanzo, A. Corso, <b>M. Rehman</b>, C. Micheloni, N. Martinel, R. Spizzo, et al.</p>
+      <p class="ve">Physica Medica: European Journal of Medical Physics, vol. 142</p>
+    </div></div>
+    <div class="pub"><div class="yr">2025</div><div>
+      <h3>Report on the Hands-On PhD Course on Responsible AI from the Lens of an Information Access Researcher</h3>
+      <p class="au">D. Spina, K. Roitero, S. Mizzaro, V. Della Mea, F. Da Ros, M. Soprano, <b>M. Rehman</b>, et al.</p>
+      <p class="ve">ACM SIGIR Forum, vol. 58, no. 2</p>
+    </div></div>
 
+    <div class="pubgroup">Under review</div>
+    <div class="pub"><div class="yr">2026</div><div>
+      <h3>ReFineMRI: Structure-Preserving Low-Field MRI Enhancement via Progressive Refinement</h3>
+      <p class="au"><b>M. Rehman</b>, D. Lyu, M. Staring, N. Martinel, M. Doneva, C. Micheloni, Y. Dong</p>
+      <p class="ve">Submitted to IEEE Transactions on Computational Imaging <span class="first">First author</span></p>
+    </div></div>
+    <div class="pub"><div class="yr">2026</div><div>
+      <h3>WAVEFORM-Net: Wavelet-Enhanced Frequency Fusion for Transformer-Based Metal Artifact Reduction in CT Domain Translation</h3>
+      <p class="au"><b>M. Rehman</b>, N. Martinel, M. Avanzo, R. Spizzo, C. Micheloni</p>
+      <p class="ve">Submitted to Multimedia Tools and Applications (Springer) <span class="first">First author</span></p>
+    </div></div>
+  </section>
+
+  <section id="posters">
+    <h2>Poster presentations</h2>
+    <div class="posters" id="posterGrid"></div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="timeline">
+      <div class="job">
+        <div class="job-head"><h3>Ph.D. in AI and Data Analysis for Personalised Oncology</h3><span class="date">2023 – 2026</span></div>
+        <div class="co">Università degli Studi di Udine <span>· Udine, Italy</span></div>
+        <p class="detail"><b>Thesis submitted August 2026</b> · DMIF, in collaboration with IRCCS CRO Aviano<br>Advisor: Prof. Christian Micheloni · Co-Advisor: Prof. Niki Martinel (Machine Learning and Perception Lab)</p>
+        <ul>
+          <li>Deep learning for metal artifact reduction in CT for radiotherapy.</li>
+          <li>kVCT → MVCT domain transformation frameworks to support treatment planning.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>M.Sc. in Software Engineering</h3><span class="date">2017 – 2021</span></div>
+        <div class="co">Tianjin University <span>· Tianjin, China</span></div>
+        <ul><li>Graduated with 83.2%; Tianjin University International Student Scholarship.</li></ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>B.Sc. in Software Engineering</h3><span class="date">2012 – 2016</span></div>
+        <div class="co">Fatima Jinnah Women University <span>· Rawalpindi, Pakistan</span></div>
+        <ul><li>Final grade 82% (WES verified). Thesis on an Android indoor navigation system using sensor networks, graded A+.</li></ul>
+      </div>
     </div>
+  </section>
 
+  <section id="skills">
+    <h2>Technical skills</h2>
+    <div class="card" style="padding:10px 22px">
+      <div class="skillrow"><b>Programming</b><div class="tags"><span class="tag">Python</span><span class="tag">C/C++</span></div></div>
+      <div class="skillrow"><b>AI &amp; vision</b><div class="tags"><span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">scikit-image</span><span class="tag">Matplotlib</span><span class="tag">Weights &amp; Biases</span></div></div>
+      <div class="skillrow"><b>Core expertise</b><div class="tags"><span class="tag">Generative AI</span><span class="tag">CNNs</span><span class="tag">Vision Transformers</span><span class="tag">Diffusion Models</span><span class="tag">Flow Matching</span><span class="tag">Image Reconstruction</span><span class="tag">Domain Translation</span></div></div>
+      <div class="skillrow"><b>Medical imaging</b><div class="tags"><span class="tag">CT</span><span class="tag">MRI</span><span class="tag">DICOM</span><span class="tag">3D Slicer</span><span class="tag">ITK-SNAP</span></div></div>
+      <div class="skillrow"><b>Tools</b><div class="tags"><span class="tag">Git</span><span class="tag">Jupyter</span><span class="tag">PyCharm</span><span class="tag">LaTeX</span><span class="tag">Jira</span><span class="tag">Miro</span></div></div>
+    </div>
+  </section>
+
+  <section id="training">
+    <h2>International schools &amp; research training</h2>
+    <div class="two">
+      <div class="item"><div class="badge">🎤</div><div><b><a href="https://ictcs2026.uniud.it/" target="_blank" rel="noopener">ICTCS 2026</a> – 27th Italian Conference on Theoretical Computer Science</b><small>Udine, Italy · 7–9 Sep 2026</small></div></div>
+      <div class="item"><div class="badge">☀️</div><div><b>RISE-MICCAI Summer School 2025</b><small>MICCAI Society · Jul 2025</small></div></div>
+      <div class="item"><div class="badge">☀️</div><div><b>International Summer School on AI (AI-DLDA), 8th Edition</b><small>University of Udine · Jun 2025</small></div></div>
+      <div class="item"><div class="badge">☀️</div><div><b>International Computer Vision Summer School (ICVSS 2024)</b><small>University of Cambridge · Aug 2024</small></div></div>
+      <div class="item"><div class="badge">☀️</div><div><b>International Summer School on AI (AI-DLDA), 7th Edition</b><small>University of Udine · Jul 2024</small></div></div>
+      <div class="item"><div class="badge">☀️</div><div><b>Summer School for Humans and Technology: Technologies for Good</b><small>DAAD, Germany · Sep 2023</small></div></div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements &amp; service</h2>
+    <div class="two">
+      <div class="item"><div class="badge">🏅</div><div><b>PhD Fellowship</b><small>Fully funded by the Italian Ministry of Health, with the National Cancer Research Institute, CRO IRCCS · 2023</small></div></div>
+      <div class="item"><div class="badge">🏅</div><div><b>Master's Scholarship</b><small>Tianjin University International Student Scholarship, for academic excellence · 2017</small></div></div>
+      <div class="item"><div class="badge">🏅</div><div><b>Laptop Award</b><small>Prime Minister's Best Student Laptop Scheme, Government of Pakistan · 2015</small></div></div>
+      <div class="item"><div class="badge">🤝</div><div><b>Member, CVPL (IAPR affiliate)</b><small>Italian Association for Research in Computer Vision, Pattern Recognition &amp; Machine Learning · 2025 – present</small></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Industry experience</h2>
+    <div class="timeline">
+      <div class="job minor"><div class="job-head"><h3>IT Project Lead &amp; CRM Manager</h3><span class="date">2021 – 2023</span></div><div class="co">Moreno Holdings Pvt Ltd. <span>· Islamabad, Pakistan</span></div></div>
+      <div class="job minor"><div class="job-head"><h3>Senior Research Executive</h3><span class="date">2016 – 2019</span></div><div class="co">Empower Pakistan <span>· Remote, part-time</span></div></div>
+      <div class="job minor"><div class="job-head"><h3>Intern</h3><span class="date">2015 – 2016</span></div><div class="co">Crevo Technologies <span>· Islamabad</span></div></div>
+      <div class="job minor"><div class="job-head"><h3>Intern</h3><span class="date">2015</span></div><div class="co">Ministry of Defence Production, Directorate of Procurement (Navy) <span>· Rawalpindi</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Beyond research</h2>
+    <div class="interests">
+      <div class="int"><h3>🎶 Soprano singer</h3><p>International Students Chorus, Tianjin University, representing cultural exchange through music.</p></div>
+      <div class="int"><h3>🤲 Volunteering</h3><p>Chinese Opera Culture Week in Beijing, Esmile Khursheed Welfare and Al-Shifa Eye Trust Hospital, Rawalpindi.</p></div>
+      <div class="int"><h3>✈️ Travel &amp; exploration</h3><p>New places, cultures, souvenirs and local cuisines.</p></div>
+      <div class="int"><h3>🌿 Fitness &amp; outdoors</h3><p>Athletics, gardening and fishing.</p></div>
+    </div>
+  </section>
+
+  <section id="languages">
+    <h2>Languages &amp; proficiency</h2>
+    <div class="two">
+      <div class="item"><div class="badge">🇬🇧</div><div><b>English – Fluent</b><small>IELTS Band 7 (2017) · IELTS Band 7 (2023)</small></div></div>
+      <div class="item"><div class="badge">✅</div><div><b>English proficiency recognised</b><small>Ecctis UK (2026, lifetime validity)</small></div></div>
+      <div class="item"><div class="badge">🇵🇰</div><div><b>Urdu – Native</b><small>Mother tongue</small></div></div>
+      <div class="item"><div class="badge">🇨🇳</div><div><b>Chinese – Basic</b><small>HSK 1 passed</small></div></div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>Get in touch</h2>
+    <div class="btns">
+      <a class="btn primary" href="mailto:rehman.mubashara@gmail.com">rehman.mubashara@gmail.com</a>
+      <a class="btn" href="mailto:rehman.mubashara@spes.uniud.it">University email</a>
+      <a class="btn" href="Mubashara-Rehman-CV.pdf" download>⬇ Download CV</a>
+    </div>
+    <p>© <span id="y">2026</span> Mubashara Rehman</p>
   </footer>
 
-
-
-  <!-- =====================================================
-       JAVASCRIPT
-  ====================================================== -->
-
-  <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-
-      /* ===================================================
-         DARK MODE
-      =================================================== */
-
-      const themeToggle =
-        document.getElementById("theme-toggle");
-
-      const themeIcon =
-        themeToggle.querySelector("i");
-
-      const savedTheme =
-        localStorage.getItem("theme");
-
-
-      if (savedTheme === "dark") {
-
-        document.body.classList.add("dark-mode");
-
-        themeIcon.classList.remove("fa-moon");
-        themeIcon.classList.add("fa-sun");
-
-      }
-
-
-      themeToggle.addEventListener("click", function () {
-
-        document.body.classList.toggle("dark-mode");
-
-
-        const isDark =
-          document.body.classList.contains("dark-mode");
-
-
-        if (isDark) {
-
-          themeIcon.classList.remove("fa-moon");
-          themeIcon.classList.add("fa-sun");
-
-          localStorage.setItem("theme", "dark");
-
-        } else {
-
-          themeIcon.classList.remove("fa-sun");
-          themeIcon.classList.add("fa-moon");
-
-          localStorage.setItem("theme", "light");
-
-        }
-
-      });
-
-
-
-      /* ===================================================
-         MOBILE MENU
-      =================================================== */
-
-      const mobileToggle =
-        document.getElementById("mobile-menu-toggle");
-
-      const navLinks =
-        document.querySelector(".nav-links");
-
-
-      mobileToggle.addEventListener("click", function () {
-
-        navLinks.classList.toggle("mobile-open");
-
-
-        const icon =
-          mobileToggle.querySelector("i");
-
-
-        if (navLinks.classList.contains("mobile-open")) {
-
-          icon.classList.remove("fa-bars");
-          icon.classList.add("fa-xmark");
-
-        } else {
-
-          icon.classList.remove("fa-xmark");
-          icon.classList.add("fa-bars");
-
-        }
-
-      });
-
-
-      document.querySelectorAll(".nav-links a")
-        .forEach(function (link) {
-
-          link.addEventListener("click", function () {
-
-            navLinks.classList.remove("mobile-open");
-
-            const icon =
-              mobileToggle.querySelector("i");
-
-            icon.classList.remove("fa-xmark");
-            icon.classList.add("fa-bars");
-
-          });
-
-        });
-
-
-
-      /* ===================================================
-         NAVBAR SCROLL STATE
-      =================================================== */
-
-      const header =
-        document.querySelector(".site-header");
-
-
-      window.addEventListener("scroll", function () {
-
-        if (window.scrollY > 20) {
-
-          header.classList.add("scrolled");
-
-        } else {
-
-          header.classList.remove("scrolled");
-
-        }
-
-      });
-
-
-
-      /* ===================================================
-         RESEARCH MEDIA
-      =================================================== */
-
-      document.querySelectorAll(".visual-card video")
-        .forEach(function (video) {
-
-          video.play().catch(function () {});
-
-        });
-
-
-
-      document.querySelectorAll(".publication-media")
-        .forEach(function (media) {
-
-          const video =
-            media.querySelector("video");
-
-          if (!video) return;
-
-
-          media.addEventListener("mouseenter", function () {
-
-            video.play().catch(function () {});
-
-          });
-
-
-          media.addEventListener("mouseleave", function () {
-
-            video.pause();
-
-          });
-
-        });
-
-
-    });
-
-  </script>
-
-
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="box">
+    <div class="mhead">
+      <div><h3 id="mTitle"></h3><p id="mSub"></p></div>
+      <button class="x" id="mClose" aria-label="Close">×</button>
+    </div>
+    <div class="stage" id="stage">
+      <button class="nav prev" id="mPrev" aria-label="Previous">‹</button>
+      <button class="nav next" id="mNext" aria-label="Next">›</button>
+    </div>
+    <div class="mfoot"><span id="mCap"></span><div class="dots" id="mDots"></div></div>
+  </div>
+</div>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+
+/* ================= POSTER PRESENTATIONS =================
+   To add pictures, put them in a folder called "posters" in your
+   repository, named exactly like this (all lowercase, .jpg):
+
+     posters/icpr2026-1.jpg   → the poster
+     posters/icpr2026-2.jpg   → photo of you presenting
+     posters/icpr2026-3.jpg   → certificate
+
+   Same pattern for misp2, iciap2025 and icvss2024.
+   Missing pictures simply show a "coming soon" slide.
+========================================================== */
+const POSTERS = [
+  { id:'icpr2026',  title:'ICPR 2026', place:'Lyon, France',
+    event:'International Conference on Pattern Recognition', date:'2026',
+    paper:'H3D-MarNet: Wavelet-Guided Dual-Path Learning for Metal Artifact Suppression and CT Modality Transformation' },
+  { id:'misp2',     title:'MISP2', place:'LUMC, Leiden, Netherlands',
+    event:'Leiden University Medical Center', date:'' , paper:'' },
+  { id:'iciap2025', title:'ICIAP 2025', place:'Rome, Italy',
+    event:'International Conference on Image Analysis and Processing', date:'2025',
+    paper:'ReMAR-DS: Recalibrated Feature Learning for Metal Artifact Reduction and CT Domain Transformation' },
+  { id:'icvss2024', title:'ICVSS 2024', place:'Catania, Italy',
+    event:'International Computer Vision Summer School', date:'2024', paper:'' }
+];
+const SLIDES = ['Poster','Presenting the poster','Certificate of presentation'];
+
+const grid=document.getElementById('posterGrid');
+POSTERS.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='poster';
+  b.innerHTML=`<div class="thumb"><span class="ph">${p.title}</span>
+      <img src="posters/${p.id}-1.jpg" alt="" onerror="this.remove()">
+      <span class="count">🖼 ${SLIDES.length}</span></div>
+    <div class="pinfo"><h3>${p.title}</h3>
+      <p>${p.event}${p.date?' · '+p.date:''}<br>📍 ${p.place}</p>
+      ${p.paper?`<p class="pt">${p.paper}</p>`:''}
+      <span class="open">View poster, photo &amp; certificate →</span></div>`;
+  b.onclick=()=>openModal(i);
+  grid.appendChild(b);
+});
+
+const modal=document.getElementById('modal'), stage=document.getElementById('stage'),
+      dots=document.getElementById('mDots');
+let cur=0, idx=0, lastFocus=null;
+
+function render(){
+  const p=POSTERS[cur];
+  stage.querySelectorAll('img,.empty').forEach(e=>e.remove());
+  const img=new Image();
+  img.alt=`${p.title} – ${SLIDES[idx]}`;
+  img.src=`posters/${p.id}-${idx+1}.jpg`;
+  img.onerror=()=>{img.replaceWith(Object.assign(document.createElement('div'),
+    {className:'empty',innerHTML:`<b>${SLIDES[idx]}</b>Coming soon`}))};
+  stage.prepend(img);
+  document.getElementById('mCap').textContent=`${idx+1} / ${SLIDES.length} · ${SLIDES[idx]}`;
+  dots.innerHTML='';
+  SLIDES.forEach((_,j)=>{const d=document.createElement('button');d.className=j===idx?'on':'';
+    d.setAttribute('aria-label',SLIDES[j]);d.onclick=()=>{idx=j;render()};dots.appendChild(d)});
+}
+function openModal(i){
+  cur=i; idx=0; lastFocus=document.activeElement;
+  const p=POSTERS[i];
+  document.getElementById('mTitle').textContent=`${p.title} · ${p.place}`;
+  document.getElementById('mSub').textContent=p.paper||p.event;
+  render(); modal.classList.add('on'); document.body.style.overflow='hidden';
+  document.getElementById('mClose').focus();
+}
+function closeModal(){modal.classList.remove('on');document.body.style.overflow='';lastFocus&&lastFocus.focus()}
+const step=d=>{idx=(idx+d+SLIDES.length)%SLIDES.length;render()};
+document.getElementById('mPrev').onclick=()=>step(-1);
+document.getElementById('mNext').onclick=()=>step(1);
+document.getElementById('mClose').onclick=closeModal;
+modal.onclick=e=>{if(e.target===modal)closeModal()};
+document.addEventListener('keydown',e=>{if(!modal.classList.contains('on'))return;
+  if(e.key==='Escape')closeModal(); if(e.key==='ArrowLeft')step(-1); if(e.key==='ArrowRight')step(1)});
+let sx=null;
+stage.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+stage.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>40)step(dx<0?1:-1);sx=null});
+</script>
 </body>
-
 </html>
